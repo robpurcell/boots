@@ -4,3 +4,32 @@
 *.jar
 *.war
 *.ear
+
+# Gradle
+.gradle
+
+# Build output directies
+/target
+*/target
+/build
+*/build
+/out
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
