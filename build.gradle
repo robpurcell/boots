@@ -20,14 +20,15 @@ jar {
 
 repositories {
     mavenCentral()
-    maven { url 'http://repo.springsource.org/libs-snapshot' }
+    maven {
+        url 'http://repo.spring.io/snapshot'
+    }
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-actuator:0.5.0.M6'
-    compile 'org.springframework.boot:spring-boot-starter-shell-remote:0.5.0.M6'
-    compile 'org.springframework.boot:spring-boot-starter-web:0.5.0.M6'
-    compile 'org.springframework.boot:spring-boot-starter-test:0.5.0.M6'
+    compile 'org.springframework.boot:spring-boot-starter-actuator:0.5.0.BUILD-SNAPSHOT'
+    compile 'org.springframework.boot:spring-boot-starter-web:0.5.0.BUILD-SNAPSHOT'
+    compile 'org.springframework.boot:spring-boot-starter-test:0.5.0.BUILD-SNAPSHOT'
     compile 'org.springframework.hateoas:spring-hateoas:0.8.0.RELEASE'
     compile 'org.springframework.plugin:spring-plugin-core:0.8.0.RELEASE'
     compile 'org.joda:joda-money:0.9'
