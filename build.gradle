@@ -32,6 +32,7 @@ dependencies {
     compile 'org.springframework.hateoas:spring-hateoas:0.8.0.RELEASE'
     compile 'org.springframework.plugin:spring-plugin-core:0.8.0.RELEASE'
     compile 'org.joda:joda-money:0.9'
+    compile 'joda-time:joda-time:2.3'
     compile 'com.fasterxml.jackson.core:jackson-databind'
 
     compile 'org.codehaus.groovy:groovy-all:2.2.1'
