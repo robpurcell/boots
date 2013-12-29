@@ -8,12 +8,12 @@ import org.joda.money.CurrencyUnit
 
 class Account {
 
-    Long uniqueId
-    String name
-    String number
-    String institution
-    CurrencyUnit currency
-    AccountType type
+    private Long uniqueId
+    private String name
+    private String number
+    private String institution
+    private CurrencyUnit currency
+    private AccountType type
 
     Account(Long uniqueId, String name, String number, String institution, CurrencyUnit currency, AccountType type) {
         this.uniqueId = uniqueId
