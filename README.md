@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/robpurcell/boots.png?label=ready)](https://waffle.io/robpurcell/boots)  
 boots
 =====
 
