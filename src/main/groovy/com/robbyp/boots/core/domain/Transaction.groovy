@@ -9,20 +9,34 @@ import org.joda.time.LocalDate
 
 class Transaction {
 
+    private Long uniqueId
     private BigDecimal quantity
     private BigMoney price
     private LocalDate date
     private String type
     private String description
-    private Account account
+    private Long accountId
 
-    Transaction(BigDecimal quantity, BigMoney price, LocalDate date, String type, String description, Account account) {
+    Transaction(
+            Long uniqueId,
+            BigDecimal quantity,
+            BigMoney price,
+            LocalDate date,
+            String type,
+            String description,
+            Long accountId)
+    {
+        this.uniqueId = uniqueId
         this.quantity = quantity
         this.price = price
         this.date = date
         this.type = type
         this.description = description
-        this.account = account
+        this.accountId = accountId
+    }
+
+    Long getUniqueId() {
+        return uniqueId
     }
 
     BigDecimal getQuantity() {
@@ -45,8 +59,8 @@ class Transaction {
         return description
     }
 
-    Account getAccount() {
-        return account
+    Long getAccountId() {
+        return accountId
     }
 
     BigMoney getTotal() {
@@ -57,5 +71,6 @@ class Transaction {
     String toString() {
         "Transaction: ${description}, for ${price} on ${date}, of ${type}."
     }
+
 }
 

@@ -14,12 +14,13 @@ class TransactionSpec extends Specification {
     void "should return a total value"() {
         when:
         def transaction = new Transaction(
-                new BigDecimal(quantity),
-                BigMoney.parse(price),
-                date,
-                type,
-                description,
-                account)
+            uniqueId,
+            new BigDecimal(quantity),
+            BigMoney.parse(price),
+            date,
+            type,
+            description,
+            accountId)
 
         then:
         transaction.getTotal() == BigMoney.parse(total)
@@ -30,9 +31,12 @@ class TransactionSpec extends Specification {
         2        | "GBP 10"  || "GBP 20"
         5        | "GBP -10" || "GBP -50"
 
+        uniqueId = 1L
         date = new LocalDate()
         type = 'anyString'
         description = 'anyString'
-        account = new Account(1L, 'anyString', 'anyString', 'anyString', CurrencyUnit.GBP, AccountType.CURRENT)
+        accountId = 1L
+//        account = new Account(1L, 'anyString', 'anyString', 'anyString', CurrencyUnit.GBP,
+// AccountType.CURRENT)
     }
 }

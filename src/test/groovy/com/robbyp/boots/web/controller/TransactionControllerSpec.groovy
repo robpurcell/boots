@@ -6,7 +6,8 @@ package com.robbyp.boots.web.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.robbyp.boots.Application
-import com.robbyp.boots.web.domain.AccountResource
+import com.robbyp.boots.web.domain.TransactionResource
+import org.joda.time.LocalDate
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
@@ -21,7 +22,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-class AccountControllerSpec extends Specification {
+class TransactionControllerSpec extends Specification {
     @Shared
     @AutoCleanup
     ConfigurableApplicationContext context
@@ -38,37 +39,28 @@ class AccountControllerSpec extends Specification {
         context = future.get(60, TimeUnit.SECONDS)
     }
 
-    void "should return Greetings"() {
-        when:
-        ResponseEntity entity = new RestTemplate().getForEntity("http://localhost:8080",
-                                                                String.class)
-
-        then:
-        entity.statusCode == HttpStatus.OK
-        entity.body == 'Greetings from Boots!'
-    }
-
-    void "should return an account"() {
+    void "should return a transaction"() {
         when:
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String.class)
         def mapper = new ObjectMapper()
-        def accountResource = mapper.readValue(entity.body, AccountResource.class)
+        def transactionResource = mapper.readValue(entity.body, TransactionResource.class)
 
         then:
         entity.statusCode == HttpStatus.OK
-        accountResource.uniqueId == uniqueId
-        accountResource.name == name
-        accountResource.number == number
-        accountResource.institution == institution
-        accountResource.currency == currency
-        accountResource.type == type
+        transactionResource.uniqueId == uniqueId
+        transactionResource.quantity == quantity
+        transactionResource.price == price
+        transactionResource.date == date
+        transactionResource.description == description
+        transactionResource.type == type
 
         where:
-        id || uniqueId || name              || number              || institution || currency || type
-        1  || 1        || 'Current Account' || '11-22-33 12345678' || 'HSBC'      || 'GBP'    || 'Current'
+        id | uniqueId | quantity | price     | type              | description
+        1  | 1        | '1'      | 'USD 100' | 'transactionType' | 'description'
 
-        url = 'http://localhost:8080/accounts/' + id
+        url = 'http://localhost:8080/transactions/' + id
+        date = new LocalDate().toString()
     }
 
 }

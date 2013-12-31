@@ -19,7 +19,14 @@ class AccountResource extends ResourceSupport {
     String currency
     String type
 
-    AccountResource(Long uniqueId, String name, String number, String institution, CurrencyUnit currency, AccountType type) {
+    AccountResource(
+            Long uniqueId,
+            String name,
+            String number,
+            String institution,
+            CurrencyUnit currency,
+            AccountType type)
+    {
         this(uniqueId.toString(), name, number, institution, currency.code, type.toString())
     }
 
@@ -29,7 +36,8 @@ class AccountResource extends ResourceSupport {
                     @JsonProperty("number") String number,
                     @JsonProperty("institution") String institution,
                     @JsonProperty("currency") String currency,
-                    @JsonProperty("type") String type) {
+                    @JsonProperty("type") String type)
+    {
         this.uniqueId = uniqueId.toLong()
         this.name = name
         this.number = number
