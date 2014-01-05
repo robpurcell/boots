@@ -4,10 +4,10 @@
  */
 package com.robbyp.boots.web.controller
 
-import com.robbyp.boots.core.domain.Account
+import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.AccountType
-import com.robbyp.boots.web.domain.AccountResource
-import com.robbyp.boots.web.domain.AccountResourceAssembler
+import com.robbyp.boots.web.domain.AccountInfoResource
+import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
 import org.joda.money.CurrencyUnit
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpEntity
@@ -24,17 +24,17 @@ import org.springframework.web.bind.annotation.ResponseBody
 public class AccountController {
 
     @Autowired
-    private AccountResourceAssembler accountResourceAssembler;
+    private AccountInfoResourceAssembler accountInfoResourceAssembler;
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity<AccountResource> showAll() {
+    public HttpEntity<AccountInfoResource> showAll() {
         print('Hello!')
     }
 
     @RequestMapping(value = "/{account}", method = RequestMethod.GET)
     @ResponseBody
-    public HttpEntity<AccountResource> show(@PathVariable Long account) {
-        Account acct = new Account(
+    public HttpEntity<AccountInfoResource> show(@PathVariable Long account) {
+        AccountInfo acct = new AccountInfo(
                 1,
                 'Current Account',
                 '11-22-33 12345678',
@@ -42,8 +42,8 @@ public class AccountController {
                 CurrencyUnit.GBP,
                 AccountType.CURRENT)
 
-        return new ResponseEntity<AccountResource>(
-                accountResourceAssembler.toResource(acct),
+        return new ResponseEntity<AccountInfoResource>(
+                accountInfoResourceAssembler.toResource(acct),
                 HttpStatus.OK)
     }
 }

@@ -36,7 +36,7 @@ class TransactionSpec extends Specification {
         type = 'anyString'
         description = 'anyString'
         accountId = 1L
-//        account = new Account(1L, 'anyString', 'anyString', 'anyString', CurrencyUnit.GBP,
+//        account = new AccountInfo(1L, 'anyString', 'anyString', 'anyString', CurrencyUnit.GBP,
 // AccountType.CURRENT)
     }
 }

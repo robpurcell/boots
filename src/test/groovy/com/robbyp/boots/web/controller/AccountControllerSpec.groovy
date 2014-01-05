@@ -6,7 +6,7 @@ package com.robbyp.boots.web.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.robbyp.boots.Application
-import com.robbyp.boots.web.domain.AccountResource
+import com.robbyp.boots.web.domain.AccountInfoResource
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
@@ -53,7 +53,7 @@ class AccountControllerSpec extends Specification {
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String.class)
         def mapper = new ObjectMapper()
-        def accountResource = mapper.readValue(entity.body, AccountResource.class)
+        def accountResource = mapper.readValue(entity.body, AccountInfoResource.class)
 
         then:
         entity.statusCode == HttpStatus.OK

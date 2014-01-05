@@ -10,7 +10,7 @@ import com.robbyp.boots.core.domain.AccountType
 import org.joda.money.CurrencyUnit
 import org.springframework.hateoas.ResourceSupport
 
-class AccountResource extends ResourceSupport {
+class AccountInfoResource extends ResourceSupport {
 
     Long uniqueId
     String name
@@ -19,7 +19,7 @@ class AccountResource extends ResourceSupport {
     String currency
     String type
 
-    AccountResource(
+    AccountInfoResource(
             Long uniqueId,
             String name,
             String number,
@@ -31,7 +31,7 @@ class AccountResource extends ResourceSupport {
     }
 
     @JsonCreator
-    AccountResource(@JsonProperty("uniqueId") String uniqueId,
+    AccountInfoResource(@JsonProperty("uniqueId") String uniqueId,
                     @JsonProperty("name") String name,
                     @JsonProperty("number") String number,
                     @JsonProperty("institution") String institution,
