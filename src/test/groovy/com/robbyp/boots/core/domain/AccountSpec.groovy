@@ -11,6 +11,7 @@ import org.joda.time.DateTime
 import org.joda.time.Days
 import org.joda.time.Interval
 import org.joda.time.LocalDate
+import org.joda.time.Minutes
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -19,15 +20,18 @@ import static com.robbyp.boots.test.TestDataGenerators.anyString
 class AccountSpec extends Specification {
 
     @Shared
+    def today = new DateTime()
+    @Shared
     def defaultGBPAccountInfo =
         new AccountInfo(uniqueId: 1L,
                         name: anyString(),
                         number: anyString(),
                         institution: anyString(),
                         currency: CurrencyUnit.GBP,
-                        type: AccountType.CURRENT)
-    @Shared
-    def today = new DateTime()
+                        type: AccountType.CURRENT,
+                        openingDate: today - Days.days(10),
+                        openingBalance: BigMoney.parse("GBP 0")
+        )
     @Shared
     def intervalStart = (today - Days.ONE).toInstant()
     @Shared
@@ -106,18 +110,49 @@ class AccountSpec extends Specification {
     def "should return the total of the entries"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        def today = new DateTime()
         account.addEntry(BigMoney.parse("GBP " + amount1), today)
         account.addEntry(BigMoney.parse("GBP " + amount2), today)
 
         then:
-        account.balance(interval) == BigMoney.parse(balance)
+        account.balance(interval) == BigMoney.parse("GBP " + balance)
 
         where:
         amount1 | amount2 || balance
-        100     | 30      || "GBP 130"
-        20      | -40     || "GBP -20"
-        0       | 0       || "GBP 0"
+        100     | 30      || 130
+        20      | -40     || -20
+        0       | 0       || 0
+    }
+
+    def "should return the balance for entries created since account opening"() {
+        when:
+        def account = new Account(accountInfo: defaultGBPAccountInfo)
+        account.addEntry(BigMoney.parse("GBP " + amount1), today - Days.days(5))
+        account.addEntry(BigMoney.parse("GBP " + amount2), today - Days.days(2))
+
+        then:
+        account.balance(today) == BigMoney.parse("GBP " + balance)
+
+        where:
+        amount1 | amount2 || balance
+        100     | 30      || 130
+        20      | -40     || -20
+        0       | 0       || 0
+    }
+
+    def "should return the balance for now"() {
+        when:
+        def account = new Account(accountInfo: defaultGBPAccountInfo)
+        account.addEntry(BigMoney.parse("GBP " + amount1), today - Days.days(5))
+        account.addEntry(BigMoney.parse("GBP " + amount2), today - Days.days(2))
+
+        then:
+        account.balance() == BigMoney.parse("GBP " + balance)
+
+        where:
+        amount1 | amount2 || balance
+        100     | 30      || 130
+        20      | -40     || -20
+        0       | 0       || 0
     }
 
 }

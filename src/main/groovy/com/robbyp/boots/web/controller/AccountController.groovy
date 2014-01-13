@@ -8,7 +8,9 @@ import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.AccountType
 import com.robbyp.boots.web.domain.AccountInfoResource
 import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
+import org.joda.money.BigMoney
 import org.joda.money.CurrencyUnit
+import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
@@ -40,7 +42,9 @@ public class AccountController {
                 '11-22-33 12345678',
                 'HSBC',
                 CurrencyUnit.GBP,
-                AccountType.CURRENT)
+                AccountType.CURRENT,
+                new DateTime(),
+                BigMoney.parse("GBP 0"))
 
         return new ResponseEntity<AccountInfoResource>(
                 accountInfoResourceAssembler.toResource(acct),

@@ -53,16 +53,16 @@ class AccountControllerSpec extends Specification {
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String.class)
         def mapper = new ObjectMapper()
-        def accountResource = mapper.readValue(entity.body, AccountInfoResource.class)
+        def accountInfoResource = mapper.readValue(entity.body, AccountInfoResource.class)
 
         then:
         entity.statusCode == HttpStatus.OK
-        accountResource.uniqueId == uniqueId
-        accountResource.name == name
-        accountResource.number == number
-        accountResource.institution == institution
-        accountResource.currency == currency
-        accountResource.type == type
+        accountInfoResource.uniqueId == uniqueId
+        accountInfoResource.name == name
+        accountInfoResource.number == number
+        accountInfoResource.institution == institution
+        accountInfoResource.currency == currency
+        accountInfoResource.type == type
 
         where:
         id || uniqueId || name              || number              || institution || currency || type

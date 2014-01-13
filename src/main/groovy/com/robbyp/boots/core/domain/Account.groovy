@@ -20,9 +20,7 @@ class Account {
 
     BigMoney balance(Interval interval) {
         BigMoney result = BigMoney.of(accountInfo.getCurrency(), BigDecimal.ZERO)
-
         entries = entriesForInterval(interval)
-
         for (Entry entry in entries) {
             result = result.plus(entry.getAmount())
         }
@@ -36,8 +34,42 @@ class Account {
                 resultantEntries.add(entry)
             }
         }
-
         return resultantEntries
     }
+
+    BigMoney balance(DateTime date) {
+        return balance(
+            new Interval(
+                accountInfo.getOpeningDate().toInstant(),
+                date.toInstant()
+            )
+        )
+    }
+
+    BigMoney balance() {
+        return balance(new DateTime())
+    }
+
+//    BigMoney deposits(Interval interval) {
+//        BigMoney result = new BigMoney.of(accountInfo.getCurrency(), BigDecimal.ZERO)
+//        Iterator it = entries.iterator()
+//        while (it.hasNext()) {
+//            Entry each = (Entry) it.next();
+//            if (interval.includes(each.date()) && each.amount().isPositive())
+//                result = result.add(each.amount());
+//        }
+//        return result;
+//    }
+//
+//    BigMoney withdrawals(DateRange period) {
+//        Money result = new Money(0, currency); Iterator it = entries.iterator();
+//        while (it.hasNext()) {
+//            Entry each = (Entry) it.next();
+//            if (period.includes(each.date()) && each.amount().isNegative())
+//                result = result.add(each.amount());
+//        }
+//        return result;
+//    }
+//
 
 }
