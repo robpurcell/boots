@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 class TransactionControllerSpec extends Specification {
     @Shared
     @AutoCleanup
-    ConfigurableApplicationContext context
+    def context
 
     void setupSpec() {
         Future future =

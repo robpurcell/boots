@@ -37,6 +37,8 @@ dependencies {
     compile 'org.joda:joda-money:0.9'
     compile 'joda-time:joda-time:2.3'
     compile 'com.fasterxml.jackson.core:jackson-databind'
+    compile 'org.apache.commons:commons-lang3:3.2'
+
 
     compile 'org.codehaus.groovy:groovy-all:2.2.1'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
