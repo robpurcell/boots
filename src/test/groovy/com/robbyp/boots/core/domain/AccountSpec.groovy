@@ -10,8 +10,6 @@ import org.joda.money.CurrencyUnit
 import org.joda.time.DateTime
 import org.joda.time.Days
 import org.joda.time.Interval
-import org.joda.time.LocalDate
-import org.joda.time.Minutes
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -48,7 +46,7 @@ class AccountSpec extends Specification {
         account.addEntry(BigMoney.parse("GBP 10"), today)
 
         then:
-        account.entries.size() == 1
+        account.getAccountingEntries().size() == 1
     }
 
     def "should throw an exception if entry does not have account currency"() {
@@ -81,7 +79,7 @@ class AccountSpec extends Specification {
         account.addEntry(BigMoney.parse("GBP 10"), today)
 
         then:
-        account.getEntries().toList() == [new Entry(BigMoney.parse("GBP 10"), today)]
+        account.getAccountingEntries().toList() == [new Entry(BigMoney.parse("GBP 10"), today)]
 
     }
 
@@ -153,6 +151,46 @@ class AccountSpec extends Specification {
         100     | 30      || 130
         20      | -40     || -20
         0       | 0       || 0
+    }
+
+    def "should return the positive balance and entries"() {
+        when:
+        def account = new Account(accountInfo: defaultGBPAccountInfo)
+        def entry1 = new Entry(BigMoney.parse("GBP " + amount1), today)
+        def entry2 = new Entry(BigMoney.parse("GBP " + amount2), today)
+        account.addEntry(entry1)
+        account.addEntry(entry2)
+
+        then:
+        account.depositEntriesForInterval(interval).size() == numberOfEntries
+        account.deposits(interval) == BigMoney.parse("GBP " + balance)
+
+        where:
+        amount1 | amount2 || balance || numberOfEntries
+        100     | 30      || 130     || 2
+        20      | -40     || 20      || 1
+        0       | 0       || 0       || 0
+        -12     | -32     || 0       || 0
+    }
+
+    def "should return the negative balance and entries"() {
+        when:
+        def account = new Account(accountInfo: defaultGBPAccountInfo)
+        def entry1 = new Entry(BigMoney.parse("GBP " + amount1), today)
+        def entry2 = new Entry(BigMoney.parse("GBP " + amount2), today)
+        account.addEntry(entry1)
+        account.addEntry(entry2)
+
+        then:
+        account.withdrawalEntriesForInterval(interval).size() == numberOfEntries
+        account.withdrawals(interval) == BigMoney.parse("GBP " + balance)
+
+        where:
+        amount1 | amount2 || balance || numberOfEntries
+        100     | 30      || 0       || 0
+        20      | -40     || -40     || 1
+        0       | 0       || 0       || 0
+        -12     | -32     || -44     || 2
     }
 
 }
