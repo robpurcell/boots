@@ -10,26 +10,26 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport
 import org.springframework.stereotype.Component
 
 @Component
-public class AccountInfoResourceAssembler extends ResourceAssemblerSupport<AccountInfo, AccountInfoResource> {
-    public AccountInfoResourceAssembler() {
-        super(AccountController.class, AccountInfoResource.class);
+class AccountInfoResourceAssembler extends ResourceAssemblerSupport<AccountInfo, AccountInfoResource> {
+    AccountInfoResourceAssembler() {
+        super(AccountController, AccountInfoResource)
     }
 
     @Override
-    public AccountInfoResource toResource(AccountInfo account) {
-        AccountInfoResource resource = createResourceWithId(account.uniqueId, account);
-        return resource;
+    AccountInfoResource toResource(AccountInfo account) {
+        AccountInfoResource resource = createResourceWithId(account.uniqueId, account)
+        return resource
     }
 
     @Override
     protected AccountInfoResource instantiateResource(AccountInfo account) {
         return new AccountInfoResource(
-                account.uniqueId,
-                account.name,
-                account.number,
-                account.institution,
-                account.currency,
-                account.type
+            account.uniqueId,
+            account.name,
+            account.number,
+            account.institution,
+            account.currency,
+            account.type
         )
     }
 }

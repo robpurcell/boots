@@ -10,29 +10,29 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport
 import org.springframework.stereotype.Component
 
 @Component
-public class TransactionResourceAssembler
-        extends ResourceAssemblerSupport<Transaction, TransactionResource> {
+class TransactionResourceAssembler
+    extends ResourceAssemblerSupport<Transaction, TransactionResource> {
 
-    public TransactionResourceAssembler() {
-        super(TransactionController.class, TransactionResource.class);
+    TransactionResourceAssembler() {
+        super(TransactionController, TransactionResource)
     }
 
     @Override
-    public TransactionResource toResource(Transaction transaction) {
-        TransactionResource resource = createResourceWithId(transaction.uniqueId, transaction);
+    TransactionResource toResource(Transaction transaction) {
+        TransactionResource resource = createResourceWithId(transaction.uniqueId, transaction)
         return resource
     }
 
     @Override
     protected TransactionResource instantiateResource(Transaction transaction) {
         return new TransactionResource(
-                transaction.uniqueId,
-                transaction.quantity,
-                transaction.price,
-                transaction.date,
-                transaction.type,
-                transaction.description,
-                transaction.accountId
+            transaction.uniqueId,
+            transaction.quantity,
+            transaction.price,
+            transaction.date,
+            transaction.type,
+            transaction.description,
+            transaction.accountId
         )
     }
 

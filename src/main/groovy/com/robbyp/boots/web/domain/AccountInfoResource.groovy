@@ -20,23 +20,23 @@ class AccountInfoResource extends ResourceSupport {
     String type
 
     AccountInfoResource(
-            Long uniqueId,
-            String name,
-            String number,
-            String institution,
-            CurrencyUnit currency,
-            AccountType type)
+        Long uniqueId,
+        String name,
+        String number,
+        String institution,
+        CurrencyUnit currency,
+        AccountType type)
     {
         this(uniqueId.toString(), name, number, institution, currency.code, type.toString())
     }
 
     @JsonCreator
-    AccountInfoResource(@JsonProperty("uniqueId") String uniqueId,
-                    @JsonProperty("name") String name,
-                    @JsonProperty("number") String number,
-                    @JsonProperty("institution") String institution,
-                    @JsonProperty("currency") String currency,
-                    @JsonProperty("type") String type)
+    AccountInfoResource(@JsonProperty('uniqueId') String uniqueId,
+                        @JsonProperty('name') String name,
+                        @JsonProperty('number') String number,
+                        @JsonProperty('institution') String institution,
+                        @JsonProperty('currency') String currency,
+                        @JsonProperty('type') String type)
     {
         this.uniqueId = uniqueId.toLong()
         this.name = name

@@ -11,7 +11,7 @@ enum AccountType {
     CURRENT('cur'),
     SAVINGS('sav'),
     CREDITCARD('cre'),
-    MORTGAGE('mor');
+    MORTGAGE('mor')
 
     final String id
 
@@ -22,8 +22,9 @@ enum AccountType {
     /* (non-Javadoc)
      * @see java.lang.Enum#toString()
      */
+
     @Override
-    public String toString() {
+    String toString() {
         return StringUtils.capitalize(this.name().toLowerCase())
     }
 }

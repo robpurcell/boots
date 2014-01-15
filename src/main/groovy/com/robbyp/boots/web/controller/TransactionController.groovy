@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-@RequestMapping("/transactions")
-public class TransactionController {
+@RequestMapping('/transactions')
+class TransactionController {
 
     @Autowired
     private TransactionResourceAssembler transactionResourceAssembler
 
-    @RequestMapping(value = "/{transaction}", method = RequestMethod.GET)
+    @RequestMapping(value = '/{transaction}', method = RequestMethod.GET)
     @ResponseBody
-    public HttpEntity<TransactionResource> show(@PathVariable Long transaction) {
+    HttpEntity<TransactionResource> show(@PathVariable Long transaction) {
         Transaction tran = new Transaction(
             1L,
             BigDecimal.ONE,
-            BigMoney.parse("USD 100"),
+            BigMoney.parse('USD 100'),
             new LocalDate(),
             'transactionType',
             'description',

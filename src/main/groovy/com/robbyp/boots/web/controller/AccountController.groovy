@@ -22,32 +22,32 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-@RequestMapping("/accounts")
-public class AccountController {
+@RequestMapping('/accounts')
+class AccountController {
 
     @Autowired
-    private AccountInfoResourceAssembler accountInfoResourceAssembler;
+    private AccountInfoResourceAssembler accountInfoResourceAssembler
 
     @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity<AccountInfoResource> showAll() {
+    HttpEntity<AccountInfoResource> showAll() {
         print('Hello!')
     }
 
-    @RequestMapping(value = "/{account}", method = RequestMethod.GET)
+    @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
-    public HttpEntity<AccountInfoResource> show(@PathVariable Long account) {
+    HttpEntity<AccountInfoResource> show(@PathVariable Long account) {
         AccountInfo acct = new AccountInfo(
-                1,
-                'Current Account',
-                '11-22-33 12345678',
-                'HSBC',
-                CurrencyUnit.GBP,
-                AccountType.CURRENT,
-                new DateTime(),
-                BigMoney.parse("GBP 0"))
+            1,
+            'Current Account',
+            '11-22-33 12345678',
+            'HSBC',
+            CurrencyUnit.GBP,
+            AccountType.CURRENT,
+            new DateTime(),
+            BigMoney.parse('GBP 0'))
 
         return new ResponseEntity<AccountInfoResource>(
-                accountInfoResourceAssembler.toResource(acct),
-                HttpStatus.OK)
+            accountInfoResourceAssembler.toResource(acct),
+            HttpStatus.OK)
     }
 }

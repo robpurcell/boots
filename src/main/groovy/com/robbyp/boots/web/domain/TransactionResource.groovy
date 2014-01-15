@@ -41,13 +41,13 @@ class TransactionResource extends ResourceSupport {
 
     @JsonCreator
     TransactionResource(
-            @JsonProperty("uniqueId") String uniqueId,
-            @JsonProperty("quantity") String quantity,
-            @JsonProperty("price") String price,
-            @JsonProperty("date") String date,
-            @JsonProperty("type") String type,
-            @JsonProperty("description") String description,
-            @JsonProperty("accountId") String accountId)
+            @JsonProperty('uniqueId') String uniqueId,
+            @JsonProperty('quantity') String quantity,
+            @JsonProperty('price') String price,
+            @JsonProperty('date') String date,
+            @JsonProperty('type') String type,
+            @JsonProperty('description') String description,
+            @JsonProperty('accountId') String accountId)
     {
         this.uniqueId = uniqueId.toLong()
         this.quantity = quantity
