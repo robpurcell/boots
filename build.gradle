@@ -50,13 +50,12 @@ dependencies {
     testCompile 'junit:junit:4.11'
 }
 
-task run(type: Exec) {
+task runBoots(type: Exec) {
     commandLine "java -jar build/libs/boots-0.1.0.jar".split(' ')
 }
 
-run.dependsOn build
-
+runBoots.dependsOn build
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
+    gradleVersion = '1.10'
 }
