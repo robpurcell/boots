@@ -4,6 +4,8 @@
  */
 package com.robbyp.boots.core.domain
 
+import static com.robbyp.boots.test.TestDataGenerators.anyString
+
 import org.joda.money.BigMoney
 import org.joda.money.CurrencyMismatchException
 import org.joda.money.CurrencyUnit
@@ -12,8 +14,6 @@ import org.joda.time.Days
 import org.joda.time.Interval
 import spock.lang.Shared
 import spock.lang.Specification
-
-import static com.robbyp.boots.test.TestDataGenerators.anyString
 
 class AccountSpec extends Specification {
 
@@ -28,7 +28,7 @@ class AccountSpec extends Specification {
                         currency: CurrencyUnit.GBP,
                         type: AccountType.CURRENT,
                         openingDate: today - Days.days(10),
-                        openingBalance: BigMoney.parse("GBP 0")
+                        openingBalance: BigMoney.parse('GBP 0')
         )
     @Shared
     def intervalStart = (today - Days.ONE).toInstant()
@@ -42,11 +42,11 @@ class AccountSpec extends Specification {
         def account = new Account(accountInfo: defaultGBPAccountInfo)
 
         when:
-        account.addEntry(BigMoney.parse("GBP 10"), today)
-        account.addEntry(BigMoney.parse("GBP 10"), today)
+        account.addEntry(BigMoney.parse('GBP 10'), today)
+        account.addEntry(BigMoney.parse('GBP 10'), today)
 
         then:
-        account.getAccountingEntries().size() == 1
+        account.accountingEntries.size() == 1
     }
 
     def "should throw an exception if entry does not have account currency"() {
@@ -54,7 +54,7 @@ class AccountSpec extends Specification {
         def account = new Account(accountInfo: defaultGBPAccountInfo)
 
         when:
-        account.addEntry(BigMoney.parse("USD 10"), today)
+        account.addEntry(BigMoney.parse('USD 10'), today)
 
         then:
         thrown(CurrencyMismatchException)
@@ -65,7 +65,7 @@ class AccountSpec extends Specification {
         def account = new Account(accountInfo: defaultGBPAccountInfo)
 
         when:
-        account.addEntry(BigMoney.parse("GBP 10"), today)
+        account.addEntry(BigMoney.parse('GBP 10'), today)
 
         then:
         notThrown(CurrencyMismatchException)
@@ -76,19 +76,19 @@ class AccountSpec extends Specification {
         def account = new Account(accountInfo: defaultGBPAccountInfo)
 
         when:
-        account.addEntry(BigMoney.parse("GBP 10"), today)
+        account.addEntry(BigMoney.parse('GBP 10'), today)
 
         then:
-        account.getAccountingEntries().toList() == [new Entry(BigMoney.parse("GBP 10"), today)]
+        account.accountingEntries.toList() == [new Entry(BigMoney.parse('GBP 10'), today)]
 
     }
 
     def "should return a list of entries in the date interval"() {
         given:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        account.addEntry(BigMoney.parse("GBP 10"), first)
-        account.addEntry(BigMoney.parse("GBP 20"), middle)
-        account.addEntry(BigMoney.parse("GBP 30"), last)
+        account.addEntry(BigMoney.parse('GBP 10'), first)
+        account.addEntry(BigMoney.parse('GBP 20'), middle)
+        account.addEntry(BigMoney.parse('GBP 30'), last)
 
         when:
         def entries = account.entriesForInterval(interval)
@@ -108,11 +108,11 @@ class AccountSpec extends Specification {
     def "should return the total of the entries"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        account.addEntry(BigMoney.parse("GBP " + amount1), today)
-        account.addEntry(BigMoney.parse("GBP " + amount2), today)
+        account.addEntry(BigMoney.parse('GBP ' + amount1), today)
+        account.addEntry(BigMoney.parse('GBP ' + amount2), today)
 
         then:
-        account.balance(interval) == BigMoney.parse("GBP " + balance)
+        account.balance(interval) == BigMoney.parse('GBP ' + balance)
 
         where:
         amount1 | amount2 || balance
@@ -124,11 +124,11 @@ class AccountSpec extends Specification {
     def "should return the balance for entries created since account opening"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        account.addEntry(BigMoney.parse("GBP " + amount1), today - Days.days(5))
-        account.addEntry(BigMoney.parse("GBP " + amount2), today - Days.days(2))
+        account.addEntry(BigMoney.parse('GBP ' + amount1), today - Days.days(5))
+        account.addEntry(BigMoney.parse('GBP ' + amount2), today - Days.days(2))
 
         then:
-        account.balance(today) == BigMoney.parse("GBP " + balance)
+        account.balance(today) == BigMoney.parse('GBP ' + balance)
 
         where:
         amount1 | amount2 || balance
@@ -140,11 +140,11 @@ class AccountSpec extends Specification {
     def "should return the balance for now"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        account.addEntry(BigMoney.parse("GBP " + amount1), today - Days.days(5))
-        account.addEntry(BigMoney.parse("GBP " + amount2), today - Days.days(2))
+        account.addEntry(BigMoney.parse('GBP ' + amount1), today - Days.days(5))
+        account.addEntry(BigMoney.parse('GBP ' + amount2), today - Days.days(2))
 
         then:
-        account.balance() == BigMoney.parse("GBP " + balance)
+        account.balance() == BigMoney.parse('GBP ' + balance)
 
         where:
         amount1 | amount2 || balance
@@ -156,14 +156,14 @@ class AccountSpec extends Specification {
     def "should return the positive balance and entries"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        def entry1 = new Entry(BigMoney.parse("GBP " + amount1), today)
-        def entry2 = new Entry(BigMoney.parse("GBP " + amount2), today)
+        def entry1 = new Entry(BigMoney.parse('GBP ' + amount1), today)
+        def entry2 = new Entry(BigMoney.parse('GBP ' + amount2), today)
         account.addEntry(entry1)
         account.addEntry(entry2)
 
         then:
         account.depositEntriesForInterval(interval).size() == numberOfEntries
-        account.deposits(interval) == BigMoney.parse("GBP " + balance)
+        account.deposits(interval) == BigMoney.parse('GBP ' + balance)
 
         where:
         amount1 | amount2 || balance || numberOfEntries
@@ -176,14 +176,14 @@ class AccountSpec extends Specification {
     def "should return the negative balance and entries"() {
         when:
         def account = new Account(accountInfo: defaultGBPAccountInfo)
-        def entry1 = new Entry(BigMoney.parse("GBP " + amount1), today)
-        def entry2 = new Entry(BigMoney.parse("GBP " + amount2), today)
+        def entry1 = new Entry(BigMoney.parse('GBP ' + amount1), today)
+        def entry2 = new Entry(BigMoney.parse('GBP ' + amount2), today)
         account.addEntry(entry1)
         account.addEntry(entry2)
 
         then:
         account.withdrawalEntriesForInterval(interval).size() == numberOfEntries
-        account.withdrawals(interval) == BigMoney.parse("GBP " + balance)
+        account.withdrawals(interval) == BigMoney.parse('GBP ' + balance)
 
         where:
         amount1 | amount2 || balance || numberOfEntries

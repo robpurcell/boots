@@ -32,35 +32,38 @@ class TransactionControllerSpec extends Specification {
             Executors.newSingleThreadExecutor().submit(
                 new Callable() {
                     @Override
-                    public ConfigurableApplicationContext call() throws Exception {
-                        return (ConfigurableApplicationContext) SpringApplication.run(Application.class)
+                    ConfigurableApplicationContext call() throws Exception {
+                        return (ConfigurableApplicationContext) SpringApplication.run(Application)
                     }
-                })
+                }
+            )
         context = future.get(60, TimeUnit.SECONDS)
     }
 
     void "should return a transaction"() {
         when:
         ResponseEntity<String> entity =
-            new RestTemplate().getForEntity(url, String.class)
+            new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        def transactionResource = mapper.readValue(entity.body, TransactionResource.class)
+        def transactionResource = mapper.readValue(entity.body, TransactionResource)
 
         then:
         entity.statusCode == HttpStatus.OK
-        transactionResource.uniqueId == uniqueId
-        transactionResource.quantity == quantity
-        transactionResource.price == price
-        transactionResource.date == date
-        transactionResource.description == description
-        transactionResource.type == type
+        transactionResource.with {
+            uniqueId == testUniqueId
+            quantity == testQuantity
+            price == testPrice
+            date == testDate
+            description == testDescription
+            type == testType
+        }
 
         where:
-        id | uniqueId | quantity | price     | type              | description
-        1  | 1        | '1'      | 'USD 100' | 'transactionType' | 'description'
+        id | testUniqueId | testQuantity | testPrice | testType          | testDescription
+        1  | 1            | '1'          | 'USD 100' | 'transactionType' | 'description'
 
         url = 'http://localhost:8080/transactions/' + id
-        date = new LocalDate().toString()
+        testDate = new LocalDate().toString()
     }
 
 }

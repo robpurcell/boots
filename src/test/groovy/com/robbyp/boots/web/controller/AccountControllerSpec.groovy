@@ -31,42 +31,35 @@ class AccountControllerSpec extends Specification {
             Executors.newSingleThreadExecutor().submit(
                 new Callable() {
                     @Override
-                    public ConfigurableApplicationContext call() throws Exception {
-                        return (ConfigurableApplicationContext) SpringApplication.run(Application.class)
+                    ConfigurableApplicationContext call() throws Exception {
+                        return (ConfigurableApplicationContext) SpringApplication.run(Application)
                     }
-                })
+                }
+            )
         context = future.get(60, TimeUnit.SECONDS)
-    }
-
-    void "should return Greetings"() {
-        when:
-        ResponseEntity entity = new RestTemplate().getForEntity("http://localhost:8080",
-                                                                String.class)
-
-        then:
-        entity.statusCode == HttpStatus.OK
-        entity.body == 'Greetings from Boots!'
     }
 
     void "should return an account"() {
         when:
         ResponseEntity<String> entity =
-            new RestTemplate().getForEntity(url, String.class)
+            new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        def accountInfoResource = mapper.readValue(entity.body, AccountInfoResource.class)
+        def accountInfoResource = mapper.readValue(entity.body, AccountInfoResource)
 
         then:
         entity.statusCode == HttpStatus.OK
-        accountInfoResource.uniqueId == uniqueId
-        accountInfoResource.name == name
-        accountInfoResource.number == number
-        accountInfoResource.institution == institution
-        accountInfoResource.currency == currency
-        accountInfoResource.type == type
+        accountInfoResource.with {
+            uniqueId == testUniqueId
+            name == testName
+            number == testNumber
+            institution == testInstitution
+            currency == testCurrency
+            type == testType
+        }
 
         where:
-        id || uniqueId || name              || number              || institution || currency || type
-        1  || 1        || 'Current Account' || '11-22-33 12345678' || 'HSBC'      || 'GBP'    || 'Current'
+        id || testUniqueId || testName          || testNumber || testInstitution || testCurrency || testType
+        1  || 1            || 'Current Account' || '11-22-33' || 'HSBC'          || 'GBP'        || 'Current'
 
         url = 'http://localhost:8080/accounts/' + id
     }

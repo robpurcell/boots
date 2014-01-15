@@ -28,16 +28,11 @@ class AccountController {
     @Autowired
     private AccountInfoResourceAssembler accountInfoResourceAssembler
 
-    @RequestMapping(method = RequestMethod.GET)
-    HttpEntity<AccountInfoResource> showAll() {
-        print('Hello!')
-    }
-
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
     HttpEntity<AccountInfoResource> show(@PathVariable Long account) {
         AccountInfo acct = new AccountInfo(
-            1,
+            account,
             'Current Account',
             '11-22-33 12345678',
             'HSBC',

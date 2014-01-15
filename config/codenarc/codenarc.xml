@@ -30,7 +30,9 @@
     </ruleset-ref>
     <ruleset-ref path="rulesets/exceptions.xml"/>
     <ruleset-ref path="rulesets/formatting.xml">
-      <exclude name="BracesForMethod"/>
+        <exclude name="SpaceAroundMapEntryColon"/>
+        <exclude name="BracesForMethod"/>
+        <exclude name="ClassJavadoc"/>
     </ruleset-ref>
     <ruleset-ref path="rulesets/generic.xml"/>
     <ruleset-ref path="rulesets/groovyism.xml"/>
@@ -44,10 +46,15 @@
         </rule-config>
         <exclude name="FactoryMethodName"/>
     </ruleset-ref>
-    <ruleset-ref path="rulesets/security.xml"/>
+    <ruleset-ref path="rulesets/security.xml">
+            <exclude name="InsecureRandom"/>
+    </ruleset-ref>
     <ruleset-ref path="rulesets/serialization.xml"/>
     <ruleset-ref path="rulesets/size.xml"/>
     <ruleset-ref path="rulesets/unnecessary.xml">
+        <rule-config name="UnnecessaryBooleanExpression">
+            <property name="doNotApplyToClassNames" value="*Spec"/>
+        </rule-config>
         <exclude name="UnnecessaryPackageReference"/>
         <exclude name="UnnecessaryReturnKeyword"/>
     </ruleset-ref>

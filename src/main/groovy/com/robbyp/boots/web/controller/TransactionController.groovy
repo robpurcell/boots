@@ -30,7 +30,7 @@ class TransactionController {
     @ResponseBody
     HttpEntity<TransactionResource> show(@PathVariable Long transaction) {
         Transaction tran = new Transaction(
-            1L,
+            transaction,
             BigDecimal.ONE,
             BigMoney.parse('USD 100'),
             new LocalDate(),
