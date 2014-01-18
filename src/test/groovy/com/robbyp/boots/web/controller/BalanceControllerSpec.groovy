@@ -6,7 +6,8 @@ package com.robbyp.boots.web.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.robbyp.boots.Application
-import com.robbyp.boots.web.domain.AccountInfoResource
+import com.robbyp.boots.web.domain.BalanceResource
+import org.joda.money.BigMoney
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
@@ -21,7 +22,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-class AccountControllerSpec extends Specification {
+class BalanceControllerSpec extends Specification {
     @Shared
     @AutoCleanup
     def context
@@ -39,29 +40,23 @@ class AccountControllerSpec extends Specification {
         context = future.get(60, TimeUnit.SECONDS)
     }
 
-    void "should return an account info"() {
+    def "should return an account balance"() {
         when:
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        def accountInfoResource = mapper.readValue(entity.body, AccountInfoResource)
+        def balanceResource = mapper.readValue(entity.body, BalanceResource)
 
         then:
         entity.statusCode == HttpStatus.OK
-        accountInfoResource.with {
-            uniqueId == testUniqueId
-            name == testName
-            number == testNumber
-            institution == testInstitution
-            currency == testCurrency
-            type == testType
-        }
+        balanceResource.accountId == testUniqueId
+        balanceResource.currency == BigMoney.parse(testBalance).currencyUnit.toString()
+        balanceResource.balance == BigMoney.parse(testBalance).amount.toString()
 
         where:
-        id || testUniqueId || testName          || testNumber || testInstitution || testCurrency || testType
-        1  || 1            || 'Current Account' || '11-22-33' || 'HSBC'          || 'GBP'        || 'Current'
-
-        url = 'http://localhost:8080/accounts/' + id
+        id = 1
+        testUniqueId = 1
+        testBalance = 'GBP 100'
+        url = 'http://localhost:8080/balances/' + id
     }
-
 }

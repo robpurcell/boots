@@ -4,10 +4,12 @@
  */
 package com.robbyp.boots.web.controller
 
+import com.robbyp.boots.core.domain.Account
 import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.AccountType
-import com.robbyp.boots.web.domain.AccountInfoResource
-import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
+import com.robbyp.boots.web.domain.Balance
+import com.robbyp.boots.web.domain.BalanceResource
+import com.robbyp.boots.web.domain.BalanceResourceAssembler
 import org.joda.money.BigMoney
 import org.joda.money.CurrencyUnit
 import org.joda.time.DateTime
@@ -22,16 +24,16 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
-@RequestMapping('/accounts')
-class AccountController {
+@RequestMapping('/balances')
+class BalanceController {
 
     @Autowired
-    private AccountInfoResourceAssembler accountInfoResourceAssembler
+    private BalanceResourceAssembler balanceResourceAssembler
 
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
-    HttpEntity<AccountInfoResource> show(@PathVariable Long account) {
-        AccountInfo acct = new AccountInfo(
+    HttpEntity<BalanceResource> show(@PathVariable Long account) {
+        AccountInfo accountInfo = new AccountInfo(
             account,
             'Current Account',
             '11-22-33 12345678',
@@ -41,8 +43,18 @@ class AccountController {
             new DateTime(),
             BigMoney.parse('GBP 0'))
 
-        return new ResponseEntity<AccountInfoResource>(
-            accountInfoResourceAssembler.toResource(acct),
+        Account acct =
+            new Account(
+                uniqueId: account,
+                accountInfo: accountInfo
+            )
+
+        acct.addEntry(BigMoney.parse('GBP 100'), new DateTime())
+
+        Balance balance = new Balance(acct.uniqueId, acct.balance())
+
+        return new ResponseEntity<BalanceResource>(
+            balanceResourceAssembler.toResource(balance),
             HttpStatus.OK)
     }
 

@@ -10,6 +10,7 @@ import org.joda.time.Interval
 
 class Account {
 
+    Long uniqueId
     Collection<Entry> accountingEntries = [] as Set
     AccountInfo accountInfo
 
