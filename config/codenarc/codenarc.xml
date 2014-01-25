@@ -55,6 +55,9 @@
         <rule-config name="UnnecessaryBooleanExpression">
             <property name="doNotApplyToClassNames" value="*Spec"/>
         </rule-config>
+        <rule-config name="UnnecessaryGetter">
+            <property name="doNotApplyToClassNames" value="MongoAssertions*"/>
+        </rule-config>
         <exclude name="UnnecessaryPackageReference"/>
         <exclude name="UnnecessaryReturnKeyword"/>
     </ruleset-ref>
