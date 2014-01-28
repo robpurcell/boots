@@ -13,5 +13,7 @@ interface AccountRepository extends MongoRepository<Account, String> {
 
     Account findById(String id)
 
+    List<Account> findByNameIn(String... name)
+
 }
 

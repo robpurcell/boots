@@ -5,6 +5,8 @@
 
 package com.robbyp.boots.persistence.integration
 
+import static com.robbyp.boots.test.TestDataGenerators.anyString
+
 import com.robbyp.boots.config.MongoConfiguration
 import com.robbyp.boots.persistence.domain.fixture.PersistenceFixture
 import com.robbyp.boots.persistence.repository.AccountRepository
@@ -42,6 +44,42 @@ class AccountRepositoryIntegrationTests {
         assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 0
         accountRepository.save(PersistenceFixture.standardAccount())
         assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 1
+    }
+
+    @Test
+    void thatSeveralItemsAreInsertedIntoRepoWorks() {
+        assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 0
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount())
+        assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 3
+    }
+
+    @Test
+    void thatSeveralItemsCanBeRetrieved() {
+        assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 0
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount())
+        def result = accountRepository.findAll()
+        assert result.size() == 3
+    }
+
+    @Test
+    void thatAnItemCanBeRetrievedByName() {
+        // Given
+        def testName = anyString()
+
+        // When
+        assert mongo.getCollection(AccountRepository.COLLECTION_NAME).count() == 0
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount())
+        accountRepository.save(PersistenceFixture.standardAccount(testName))
+
+        // Then
+        def result = accountRepository.findByNameIn(testName)
+        assert result.size() == 1
+        assert result[0].name == testName
     }
 
 }
