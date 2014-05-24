@@ -2,7 +2,6 @@
  * Copyright (c) 2014 Purcell Informatics Limited.
  *
  */
-
 package com.robbyp.boots.persistence.integration
 
 import static com.robbyp.boots.test.TestDataGenerators.anyString
@@ -24,10 +23,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 class AccountRepositoryIntegrationTests {
 
     @Autowired
-    AccountRepository accountRepository
+    private AccountRepository accountRepository
 
     @Autowired
-    MongoOperations mongo
+    private MongoOperations mongo
 
     @Before
     void setup() {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class DefaultAccountService implements AccountService {
     @Override
-    void create(AccountInfo account) {
+    void add(AccountInfo account) {
 
     }
 

@@ -32,7 +32,7 @@ public class Application {
         Reactor r = Reactors.reactor(env);
 
         r.on($("account.create"), (Event<AccountInfo> ev) -> {
-            accountService.create(ev.getData());
+            accountService.add(ev.getData());
             log.info("Created account: {}", ev.getData());
         });
 

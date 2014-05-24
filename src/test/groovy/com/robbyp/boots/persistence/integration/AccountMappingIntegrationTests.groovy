@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory
 
 class AccountMappingIntegrationTests {
 
-    MongoOperations mongo
+    private MongoOperations mongo
 
     @Before
     void setup() {
