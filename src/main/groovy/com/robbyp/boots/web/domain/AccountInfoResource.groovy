@@ -5,11 +5,13 @@
 package com.robbyp.boots.web.domain
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.robbyp.boots.core.domain.AccountType
 import org.joda.money.CurrencyUnit
 import org.springframework.hateoas.ResourceSupport
 
+@JsonIgnoreProperties(['_links'])
 class AccountInfoResource extends ResourceSupport {
 
     Long uniqueId

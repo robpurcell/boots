@@ -5,10 +5,12 @@
 package com.robbyp.boots.web.domain
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.joda.money.BigMoney
 import org.springframework.hateoas.ResourceSupport
 
+@JsonIgnoreProperties(['_links'])
 class BalanceResource extends ResourceSupport {
 
     Long accountId
