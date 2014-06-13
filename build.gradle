@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 ext {
-    reactorVersion = '1.1.0.RELEASE'
-    springBootVersion = '1.1.0.BUILD-SNAPSHOT'
+    reactorVersion = '1.1.2.RELEASE'
+    springBootVersion = '1.1.1.RELEASE'
     springPluginVersion = '1.1.0.RELEASE'
     groovyVersion = '2.3.1'
     mongoVersion = '1.5.0.RELEASE'
@@ -46,7 +46,6 @@ apply plugin: 'codenarc'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-[compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:none', '-g']
 
 codenarc {
     toolVersion = 0.21
@@ -84,19 +83,20 @@ dependencies {
     compile "org.projectreactor:reactor-core:$reactorVersion"
     compile "org.projectreactor:reactor-groovy:$reactorVersion"
     compile "org.projectreactor.spring:reactor-spring-context:$reactorVersion"
+    compile "org.projectreactor.spring:reactor-spring-webmvc:$reactorVersion"
 
     compile "org.apache.commons:commons-lang3:$commonsLangVersion"
 
     testCompile "org.spockframework:spock-core:$spockVersion"
     testCompile 'junit:junit'
+
+    // Change default Tomcat dependencies
+    compile 'org.apache.tomcat.embed:tomcat-embed-core:8.0.8'
+    compile 'org.apache.tomcat.embed:tomcat-embed-el:8.0.8'
+    compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.8'
+
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.12'
-}
-
-task printDependencies << {
-    dependencies.each { dependency ->
-        println dependency
-    }
 }

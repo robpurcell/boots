@@ -11,4 +11,6 @@ interface AccountService {
 
     void list()
 
+    AccountInfo getAccountInfoForId(Long accountId)
+
 }

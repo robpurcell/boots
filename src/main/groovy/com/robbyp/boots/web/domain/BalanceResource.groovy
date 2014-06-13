@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 Purcell Informatics Limited.
+ * Copyright (c) 2014 Purcell Informatics Limited.
  *
  */
 package com.robbyp.boots.web.domain
