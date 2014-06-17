@@ -37,7 +37,6 @@ class AccountController {
             Promises.<ResponseEntity<AccountInfoResource>> defer(env)
 
         reactor.notify('account.get', Event.wrap(Tuple.of(d, account)))
-
         return d.compose()
     }
 
