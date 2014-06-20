@@ -48,18 +48,16 @@ class AccountControllerSpec extends Specification {
 
         then:
         entity.statusCode == HttpStatus.OK
-        accountInfoResource.with {
-            uniqueId == testUniqueId
-            name == testName
-            number == testNumber
-            institution == testInstitution
-            currency == testCurrency
-            type == testType
-        }
+        assert accountInfoResource.uniqueId == testUniqueId
+        assert accountInfoResource.name == testName
+        assert accountInfoResource.number == testNumber
+        assert accountInfoResource.institution == testInst
+        assert accountInfoResource.currency == testCcy
+        assert accountInfoResource.type == testType
 
         where:
-        id || testUniqueId || testName          || testNumber || testInstitution || testCurrency || testType
-        1  || 1            || 'Current Account' || '11-22-33' || 'HSBC'          || 'GBP'        || 'Current'
+        id || testUniqueId || testName          || testNumber          || testInst || testCcy || testType
+        1  || 1            || 'Current Account' || '11-22-33 12345678' || 'HSBC'   || 'GBP'   || 'Current'
 
         url = 'http://localhost:8080/accounts/' + id
     }

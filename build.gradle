@@ -88,6 +88,7 @@ dependencies {
     compile "org.apache.commons:commons-lang3:$commonsLangVersion"
 
     testCompile "org.spockframework:spock-core:$spockVersion"
+    testCompile "org.spockframework:spock-spring:$spockVersion"
     testCompile 'junit:junit'
 
     // Change default Tomcat dependencies
