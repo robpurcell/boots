@@ -17,7 +17,7 @@ ext {
     reactorVersion = '1.1.2.RELEASE'
     springBootVersion = '1.1.1.RELEASE'
     springPluginVersion = '1.1.0.RELEASE'
-    groovyVersion = '2.3.1'
+    groovyVersion = '2.3.3'
     mongoVersion = '1.5.0.RELEASE'
     hateoasVersion = '0.11.0.RELEASE'
     jodaMoneyVersion =  '0.9.1'
