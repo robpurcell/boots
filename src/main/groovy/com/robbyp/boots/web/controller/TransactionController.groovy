@@ -5,7 +5,6 @@
 package com.robbyp.boots.web.controller
 
 import com.robbyp.boots.web.domain.BalanceResource
-import com.robbyp.boots.web.domain.TransactionResource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 import reactor.core.Environment
 import reactor.core.Reactor
-import reactor.core.composable.Deferred
-import reactor.core.composable.Promise
 import reactor.core.composable.spec.Promises
 import reactor.event.Event
 import reactor.tuple.Tuple
@@ -34,11 +31,8 @@ class TransactionController {
     @RequestMapping(value = '/{transaction}', method = RequestMethod.GET)
     @ResponseBody
     def asyncShow(@PathVariable Long transaction) {
-        Deferred<ResponseEntity<TransactionResource>, Promise<ResponseEntity<TransactionResource>>> d =
-            Promises.<ResponseEntity<BalanceResource>> defer(env)
-
+        def d = Promises.<ResponseEntity<BalanceResource>> defer(env)
         reactor.notify('transaction.get', Event.wrap(Tuple.of(d, transaction)))
-
         return d.compose()
     }
 

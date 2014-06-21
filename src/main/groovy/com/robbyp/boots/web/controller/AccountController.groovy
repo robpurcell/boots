@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 import reactor.core.Environment
 import reactor.core.Reactor
-import reactor.core.composable.Deferred
-import reactor.core.composable.Promise
 import reactor.core.composable.spec.Promises
 import reactor.event.Event
 import reactor.tuple.Tuple
@@ -33,9 +31,7 @@ class AccountController {
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
     def asyncShow(@PathVariable Long account) {
-        Deferred<ResponseEntity<AccountInfoResource>, Promise<ResponseEntity<AccountInfoResource>>> d =
-            Promises.<ResponseEntity<AccountInfoResource>> defer(env)
-
+        def d = Promises.<ResponseEntity<AccountInfoResource>> defer(env)
         reactor.notify('account.get', Event.wrap(Tuple.of(d, account)))
         return d.compose()
     }
