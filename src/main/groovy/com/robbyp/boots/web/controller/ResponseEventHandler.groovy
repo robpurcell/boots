@@ -8,7 +8,7 @@ import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.Transaction
 import com.robbyp.boots.core.services.AccountService
 import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
-import com.robbyp.boots.web.domain.Balance
+import com.robbyp.boots.core.domain.Balance
 import com.robbyp.boots.web.domain.BalanceResourceAssembler
 import com.robbyp.boots.web.domain.TransactionResourceAssembler
 import org.springframework.beans.factory.annotation.Autowired

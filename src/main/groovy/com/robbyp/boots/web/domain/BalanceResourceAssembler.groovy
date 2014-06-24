@@ -4,6 +4,7 @@
  */
 package com.robbyp.boots.web.domain
 
+import com.robbyp.boots.core.domain.Balance
 import com.robbyp.boots.web.controller.BalanceController
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport
 import org.springframework.stereotype.Component

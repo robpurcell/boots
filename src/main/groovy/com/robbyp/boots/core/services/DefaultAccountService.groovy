@@ -7,7 +7,7 @@ package com.robbyp.boots.core.services
 import com.robbyp.boots.core.domain.Account
 import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.AccountType
-import com.robbyp.boots.web.domain.Balance
+import com.robbyp.boots.core.domain.Balance
 import org.joda.money.BigMoney
 import org.joda.money.CurrencyUnit
 import org.joda.time.DateTime

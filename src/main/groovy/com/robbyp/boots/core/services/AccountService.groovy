@@ -5,7 +5,7 @@
 package com.robbyp.boots.core.services
 
 import com.robbyp.boots.core.domain.AccountInfo
-import com.robbyp.boots.web.domain.Balance
+import com.robbyp.boots.core.domain.Balance
 
 interface AccountService {
 
