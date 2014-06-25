@@ -53,6 +53,18 @@ codenarc {
     toolVersion = 0.21
 }
 
+asciidoctor {
+    options = [
+        eruby: 'erubis',
+        attributes: [
+            'source-highlighter': 'coderay',
+            toc: 'right',
+            idprefix: '',
+            idseparator: '-'
+        ]
+    ]
+}
+
 jar {
     baseName = 'boots'
     version = '0.1.0'

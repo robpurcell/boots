@@ -1,0 +1,9 @@
+= Welcome To Boots
+Rob Purcell <rob.purcell@gmail.com>
+v0.1, 25 June 2014
+
+This document walks through various aspects of the design of the application.
+
+include::src/asciidoc/design.ad[]
+
+include::src/asciidoc/rest.ad[]

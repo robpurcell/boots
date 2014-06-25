@@ -1,0 +1,34 @@
+== REST API
+
+=== Accounts
+
+Accounts can be created, read, updated and deleted by a user.
+
+==== Create
+Create a new account, and upon success, receive a Location header specifying the new accounts’s uRI.
+
+[cols="h,5a"]
+|===
+| URL
+| /accounts/
+
+| Method
+| POST
+
+| Response Body
+|
+|===
+
+==== Read
+
+[cols="h,5a"]
+|===
+| URL
+| /accounts/{accountId}
+
+| Method
+| GET
+
+| Response Body
+| TBD
+|===
