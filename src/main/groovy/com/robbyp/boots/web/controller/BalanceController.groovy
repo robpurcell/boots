@@ -30,7 +30,7 @@ class BalanceController {
 
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
-    def asyncShow(@PathVariable Long account) {
+    def show(@PathVariable Long account) {
         def d = Promises.<ResponseEntity<BalanceResource>> defer(env)
         reactor.notify('account.balance', Event.wrap(Tuple.of(d, account)))
         return d.compose()

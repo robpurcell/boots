@@ -30,7 +30,7 @@ class TransactionController {
 
     @RequestMapping(value = '/{transaction}', method = RequestMethod.GET)
     @ResponseBody
-    def asyncShow(@PathVariable Long transaction) {
+    def show(@PathVariable Long transaction) {
         def d = Promises.<ResponseEntity<BalanceResource>> defer(env)
         reactor.notify('transaction.get', Event.wrap(Tuple.of(d, transaction)))
         return d.compose()

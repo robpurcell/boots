@@ -30,7 +30,7 @@ class AccountController {
 
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
-    def asyncShow(@PathVariable Long account) {
+    def show(@PathVariable Long account) {
         def d = Promises.<ResponseEntity<AccountInfoResource>> defer(env)
         reactor.notify('account.get', Event.wrap(Tuple.of(d, account)))
         return d.compose()
