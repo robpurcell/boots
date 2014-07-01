@@ -4,27 +4,28 @@
  */
 package com.robbyp.boots.core.domain
 
-import org.springframework.util.StringUtils
+import org.apache.commons.lang3.StringUtils
+
 
 enum AccountType {
 
-    CURRENT('cur'),
-    SAVINGS('sav'),
-    CREDITCARD('cre'),
-    MORTGAGE('mor')
+    CURRENT('Current'),
+    SAVINGS('Savings'),
+    CREDITCARD('Credit Card'),
+    MORTGAGE('Mortgage')
 
-    final String id
+    final String typeName
 
-    private AccountType(String id) {
-        this.id = id
+    private AccountType(String typeName) {
+        this.typeName = typeName
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Enum#toString()
-     */
+    static AccountType getTypeFromName(String name) {
+        return StringUtils.deleteWhitespace(name).toUpperCase() as AccountType
+    }
 
     @Override
     String toString() {
-        return StringUtils.capitalize(this.name().toLowerCase())
+        return this.typeName
     }
 }

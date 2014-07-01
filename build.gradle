@@ -103,7 +103,7 @@ dependencies {
 
     testCompile "org.spockframework:spock-core:$spockVersion"
     testCompile "org.spockframework:spock-spring:$spockVersion"
-    testCompile 'junit:junit'
+    testCompile 'com.cyrusinnovation:mockito-groovy-support:1.3'
 
     // Change default Tomcat dependencies
     compile 'org.apache.tomcat.embed:tomcat-embed-core:8.0.8'

@@ -4,7 +4,6 @@
  */
 package com.robbyp.boots.web.controller
 
-import com.robbyp.boots.web.domain.AccountInfoResource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -18,9 +17,12 @@ import reactor.core.composable.spec.Promises
 import reactor.event.Event
 import reactor.tuple.Tuple
 
+import com.robbyp.boots.web.domain.AccountInfoResource
+
+
 @Controller
 @RequestMapping('/accounts')
-class AccountController {
+class AccountQueriesController {
 
     @Autowired
     Environment env

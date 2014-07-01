@@ -33,12 +33,17 @@
         <exclude name="SpaceAroundMapEntryColon"/>
         <exclude name="BracesForMethod"/>
         <exclude name="ClassJavadoc"/>
+        <exclude name="ConsecutiveBlankLines"/>
     </ruleset-ref>
     <ruleset-ref path="rulesets/generic.xml"/>
     <ruleset-ref path="rulesets/groovyism.xml"/>
     <ruleset-ref path="rulesets/imports.xml"/>
     <ruleset-ref path="rulesets/jdbc.xml"/>
-    <ruleset-ref path="rulesets/junit.xml"/>
+    <ruleset-ref path="rulesets/junit.xml">
+        <rule-config name="JUnitTestMethodWithoutAssert">
+            <property name="assertMethodPatterns" value="assert.*,should.*,fail.*,verify.*,andExpect.*"/>
+        </rule-config>
+    </ruleset-ref>
     <ruleset-ref path="rulesets/logging.xml"/>
     <ruleset-ref path="rulesets/naming.xml">
         <rule-config name="MethodName">
@@ -47,7 +52,7 @@
         <exclude name="FactoryMethodName"/>
     </ruleset-ref>
     <ruleset-ref path="rulesets/security.xml">
-            <exclude name="InsecureRandom"/>
+        <exclude name="InsecureRandom"/>
     </ruleset-ref>
     <ruleset-ref path="rulesets/serialization.xml"/>
     <ruleset-ref path="rulesets/size.xml"/>

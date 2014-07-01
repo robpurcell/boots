@@ -13,7 +13,7 @@ interface AccountService {
 
     Balance getAccountBalanceForId(Long accountId)
 
-    void add(AccountInfo account)
+    AccountInfo createNewAccount(AccountInfo account)
 
     void list()
 

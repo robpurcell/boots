@@ -5,14 +5,14 @@
 package com.robbyp.boots.web.domain
 
 import com.robbyp.boots.core.domain.AccountInfo
-import com.robbyp.boots.web.controller.AccountController
+import com.robbyp.boots.web.controller.AccountQueriesController
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport
 import org.springframework.stereotype.Component
 
 @Component
 class AccountInfoResourceAssembler extends ResourceAssemblerSupport<AccountInfo, AccountInfoResource> {
     AccountInfoResourceAssembler() {
-        super(AccountController, AccountInfoResource)
+        super(AccountQueriesController, AccountInfoResource)
     }
 
     @Override

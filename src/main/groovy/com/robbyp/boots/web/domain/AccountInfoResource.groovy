@@ -7,9 +7,11 @@ package com.robbyp.boots.web.domain
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.robbyp.boots.core.domain.AccountType
 import org.joda.money.CurrencyUnit
 import org.springframework.hateoas.ResourceSupport
+
+import com.robbyp.boots.core.domain.AccountType
+
 
 @JsonIgnoreProperties(['_links'])
 class AccountInfoResource extends ResourceSupport {
@@ -47,5 +49,6 @@ class AccountInfoResource extends ResourceSupport {
         this.currency = currency
         this.type = type
     }
+
 }
 

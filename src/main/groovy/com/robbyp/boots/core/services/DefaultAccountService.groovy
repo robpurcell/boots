@@ -4,14 +4,16 @@
  */
 package com.robbyp.boots.core.services
 
-import com.robbyp.boots.core.domain.Account
-import com.robbyp.boots.core.domain.AccountInfo
-import com.robbyp.boots.core.domain.AccountType
-import com.robbyp.boots.core.domain.Balance
 import org.joda.money.BigMoney
 import org.joda.money.CurrencyUnit
 import org.joda.time.DateTime
 import org.springframework.stereotype.Service
+
+import com.robbyp.boots.core.domain.Account
+import com.robbyp.boots.core.domain.AccountInfo
+import com.robbyp.boots.core.domain.AccountType
+import com.robbyp.boots.core.domain.Balance
+
 
 @Service
 class DefaultAccountService implements AccountService {
@@ -47,8 +49,8 @@ class DefaultAccountService implements AccountService {
     }
 
     @Override
-    void add(AccountInfo account) {
-
+    AccountInfo createNewAccount(AccountInfo account) {
+        return account
     }
 
     @Override
