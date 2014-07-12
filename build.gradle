@@ -15,7 +15,7 @@
  */
 ext {
     reactorVersion = '1.1.2.RELEASE'
-    springBootVersion = '1.1.3.RELEASE'
+    springBootVersion = '1.1.4.RELEASE'
     springPluginVersion = '1.1.0.RELEASE'
     groovyVersion = '2.3.3'
     mongoVersion = '1.5.0.RELEASE'
