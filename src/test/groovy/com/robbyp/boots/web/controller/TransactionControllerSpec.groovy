@@ -62,7 +62,7 @@ class TransactionControllerSpec extends Specification {
         id | testUniqueId | testQuantity | testPrice | testType          | testDescription
         1  | 1            | '1'          | 'USD 100' | 'transactionType' | 'description'
 
-        url = 'http://localhost:8080/transactions/' + id
+        url = 'http://localhost:8080/api/transactions/' + id
         testDate = new LocalDate().toString()
     }
 

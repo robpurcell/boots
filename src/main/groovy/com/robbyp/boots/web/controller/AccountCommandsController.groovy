@@ -26,7 +26,7 @@ import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
 
 
 @Controller
-@RequestMapping('/accounts')
+@RequestMapping('/api/accounts')
 class AccountCommandsController {
     @Autowired
     AccountService service
@@ -42,7 +42,7 @@ class AccountCommandsController {
         HttpHeaders headers = new HttpHeaders()
         headers.setLocation(
             builder
-                .path('/accounts/{id}')
+                .path('/api/accounts/{id}')
                 .buildAndExpand(accountInfo.uniqueId.toString()).toUri()
         )
 

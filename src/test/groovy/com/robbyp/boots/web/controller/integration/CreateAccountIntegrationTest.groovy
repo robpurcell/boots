@@ -70,7 +70,7 @@ class CreateAccountIntegrationTest {
     @Test
     void thatCreateAccountUsesHttpCreated() {
         this.mockMvc.perform(
-            post('/accounts')
+            post('/api/accounts')
                 .content(standardAccountInfoJSON(ACCOUNT_INFO))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ class CreateAccountIntegrationTest {
     @Test
     void thatCreateAccountRendersAsJson() {
         this.mockMvc.perform(
-            post('/accounts')
+            post('/api/accounts')
                 .content(standardAccountInfoJSON(ACCOUNT_INFO))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ class CreateAccountIntegrationTest {
     @Test
     void thatCreateAccountPassesLocationHeader() {
         this.mockMvc.perform(
-            post('/accounts')
+            post('/api/accounts')
                 .content(standardAccountInfoJSON(ACCOUNT_INFO))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

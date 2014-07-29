@@ -19,7 +19,7 @@ import reactor.event.Event
 import reactor.tuple.Tuple
 
 @Controller
-@RequestMapping('/balances')
+@RequestMapping('/api/balances')
 class BalanceController {
 
     @Autowired

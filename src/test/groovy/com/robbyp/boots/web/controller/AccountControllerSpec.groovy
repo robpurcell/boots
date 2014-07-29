@@ -59,7 +59,7 @@ class AccountControllerSpec extends Specification {
         id || testUniqueId || testName          || testNumber          || testInst || testCcy || testType
         1  || 1            || 'Current Account' || '11-22-33 12345678' || 'HSBC'   || 'GBP'   || 'Current'
 
-        url = 'http://localhost:8080/accounts/' + id
+        url = 'http://localhost:8080/api/accounts/' + id
     }
 
 }

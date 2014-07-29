@@ -21,7 +21,7 @@ import com.robbyp.boots.web.domain.AccountInfoResource
 
 
 @Controller
-@RequestMapping('/accounts')
+@RequestMapping('/api/accounts')
 class AccountQueriesController {
 
     @Autowired

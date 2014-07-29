@@ -57,6 +57,6 @@ class BalanceControllerSpec extends Specification {
         id = 1
         testUniqueId = 1
         testBalance = 'GBP 100'
-        url = 'http://localhost:8080/balances/' + id
+        url = 'http://localhost:8080/api/balances/' + id
     }
 }
