@@ -112,7 +112,7 @@ dependencies {
     compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.9'
 
     // Client
-    compile 'com.robbyp:boots-client:0.1.0'
+//    compile 'com.robbyp:boots-client:0.1.0'
 
 }
 
