@@ -71,7 +71,8 @@ jar {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
+    maven { url 'http://localhost:8081/artifactory/libs-release-local' }
     maven { url 'http://repository.jboss.org/nexus/content/groups/public' }
     maven { url 'http://repo.spring.io/libs-milestone' }
     maven { url 'http://repo.spring.io/libs-snapshot' }
@@ -110,8 +111,11 @@ dependencies {
     compile 'org.apache.tomcat.embed:tomcat-embed-el:8.0.9'
     compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.9'
 
+    // Client
+    compile 'com.robbyp:boots-client:0.1.0'
+
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '2.0'
 }
