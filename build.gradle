@@ -46,8 +46,8 @@ apply plugin: 'spring-boot'
 apply plugin: 'codenarc'
 apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 codenarc {
     toolVersion = 0.21
@@ -112,7 +112,7 @@ dependencies {
     compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.9'
 
     // Client
-//    compile 'com.robbyp:boots-client:0.1.0'
+    //runtime 'com.robbyp:boots-client:0.1.1'
 
 }
 
