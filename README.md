@@ -3,14 +3,14 @@
 Cash management app using Spring Boot.  Codename Boots...
 
 [![Stories in Ready](https://badge.waffle.io/robpurcell/boots.png?label=ready)](https://waffle.io/robpurcell/boots)
-[![Build Status](https://travis-ci.org/robpurcell/boots.png)](https://travis-ci.org/robpurcell/boots)
+[![Build Status](https://travis-ci.org/robpurcell/boots.svg)](https://travis-ci.org/robpurcell/boots)
 [![License](http://img.shields.io/:license-apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 
 ## Technologies
 
 ### Server
-_ Groovy
+- Groovy
 - Spring Boot
 - Reactor
 - MongoDB
