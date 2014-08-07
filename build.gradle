@@ -17,9 +17,9 @@ ext {
     reactorVersion = '1.1.2.RELEASE'
     springBootVersion = '1.1.4.RELEASE'
     springPluginVersion = '1.1.0.RELEASE'
-    groovyVersion = '2.3.3'
+    groovyVersion = '2.3.6'
     mongoVersion = '1.5.0.RELEASE'
-    hateoasVersion = '0.11.0.RELEASE'
+    hateoasVersion = '0.15.0.RELEASE'
     jodaMoneyVersion =  '0.9.1'
     jodaTimeVersion = '2.3'
     spockVersion = '0.7-groovy-2.0'
@@ -27,27 +27,26 @@ ext {
     jacksonVersion = '2.3.3'
 }
 
-
 buildscript {
     repositories {
-        maven { url 'http://repo.spring.io/plugins-release' }
         jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:0.7.1'
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE')
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE'
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'codenarc'
 apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 codenarc {
     toolVersion = 0.21
@@ -112,7 +111,7 @@ dependencies {
     compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.9'
 
     // Client
-    //runtime 'com.robbyp:boots-client:0.1.1'
+    //runtime 'com.robbyp:boots-client:0.1.4'
 
 }
 
