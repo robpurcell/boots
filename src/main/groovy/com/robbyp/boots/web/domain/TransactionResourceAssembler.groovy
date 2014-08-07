@@ -19,7 +19,7 @@ class TransactionResourceAssembler
 
     @Override
     TransactionResource toResource(Transaction transaction) {
-        TransactionResource resource = createResourceWithId(transaction.uniqueId, transaction)
+        TransactionResource resource = instantiateResource(transaction)
         return resource
     }
 

@@ -17,7 +17,8 @@ class AccountInfoResourceAssembler extends ResourceAssemblerSupport<AccountInfo,
 
     @Override
     AccountInfoResource toResource(AccountInfo account) {
-        AccountInfoResource resource = createResourceWithId(account.uniqueId, account)
+        // TODO - use toResource() instead to add selfRel link
+        AccountInfoResource resource = instantiateResource(account)
         return resource
     }
 

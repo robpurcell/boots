@@ -4,13 +4,6 @@
  */
 package com.robbyp.boots.web.controller
 
-import com.robbyp.boots.core.domain.AccountInfo
-import com.robbyp.boots.core.domain.Transaction
-import com.robbyp.boots.core.services.AccountService
-import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
-import com.robbyp.boots.core.domain.Balance
-import com.robbyp.boots.web.domain.BalanceResourceAssembler
-import com.robbyp.boots.web.domain.TransactionResourceAssembler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -19,6 +12,15 @@ import reactor.core.composable.Promise
 import reactor.spring.context.annotation.Consumer
 import reactor.spring.context.annotation.Selector
 import reactor.tuple.Tuple2
+
+import com.robbyp.boots.core.domain.AccountInfo
+import com.robbyp.boots.core.domain.Balance
+import com.robbyp.boots.core.domain.Transaction
+import com.robbyp.boots.core.services.AccountService
+import com.robbyp.boots.web.domain.AccountInfoResourceAssembler
+import com.robbyp.boots.web.domain.BalanceResourceAssembler
+import com.robbyp.boots.web.domain.TransactionResourceAssembler
+
 
 @Consumer
 class ResponseEventHandler {
@@ -45,17 +47,30 @@ class ResponseEventHandler {
      */
     @Selector(value = 'response', reactor = '@reactor')
     <R, S> void formatResponse(
-        Tuple2<Deferred<ResponseEntity<R>, Promise<ResponseEntity<R>>>, S> data
+        Tuple2<Deferred<ResponseEntity<Iterable<R>>, Promise<ResponseEntity<Iterable<R>>>>, Iterable<S>> data
     )
     {
-        def resourceAssembler = determineResourceAssembler(data.t2.class)
-        R resource = resourceAssembler.instantiateResource(data.t2)
+        def resourceAssembler = determineResourceAssembler(data.t2)
+        Iterable<R> resources = resourceAssembler.toResources(data.t2)
 
-        data.t1.accept new ResponseEntity<R>(resource, HttpStatus.OK)
+        data.t1.accept new ResponseEntity<Iterable<R>>(resources, HttpStatus.OK)
     }
 
-    def determineResourceAssembler(Class aClass) {
-        switch (aClass) {
+    def determineResourceAssembler(def resource) {
+        def resourceClass = Object
+        if (resource instanceof Collection) {
+            if (resource.size() > 0) {
+                resourceClass = resource[0].class
+            }
+        }
+        else if (resource instanceof Class) {
+            resourceClass = resource
+        }
+        else {
+            resourceClass = resource.class
+        }
+
+        switch (resourceClass) {
             case Balance:
                 return balanceResourceAssembler
             case AccountInfo:
@@ -63,6 +78,5 @@ class ResponseEventHandler {
             case Transaction:
                 return transactionResourceAssembler
         }
-
     }
 }

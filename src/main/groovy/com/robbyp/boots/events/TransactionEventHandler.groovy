@@ -4,8 +4,6 @@
  */
 package com.robbyp.boots.events
 
-import com.robbyp.boots.core.services.TransactionService
-import com.robbyp.boots.web.domain.TransactionResource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import reactor.core.Reactor
@@ -16,6 +14,10 @@ import reactor.spring.context.annotation.Consumer
 import reactor.spring.context.annotation.Selector
 import reactor.tuple.Tuple
 import reactor.tuple.Tuple2
+
+import com.robbyp.boots.core.services.TransactionService
+import com.robbyp.boots.web.domain.TransactionResource
+
 
 @Consumer
 class TransactionEventHandler {
@@ -32,7 +34,7 @@ class TransactionEventHandler {
     )
     {
         def transaction = service.getTransactionForId(d.t2)
-        reactor.notify('response', Event.wrap(Tuple.of(d.t1, transaction)))
+        reactor.notify('response', Event.wrap(Tuple.of(d.t1, Collections.singletonList(transaction))))
     }
 
 }

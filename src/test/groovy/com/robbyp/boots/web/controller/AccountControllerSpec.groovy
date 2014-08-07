@@ -4,9 +4,9 @@
  */
 package com.robbyp.boots.web.controller
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.robbyp.boots.Application
-import com.robbyp.boots.web.domain.AccountInfoResource
+import org.joda.money.CurrencyUnit
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
@@ -20,6 +20,11 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
+
+import com.robbyp.boots.Application
+import com.robbyp.boots.core.domain.AccountType
+import com.robbyp.boots.web.domain.AccountInfoResource
+
 
 class AccountControllerSpec extends Specification {
     @Shared
@@ -44,7 +49,13 @@ class AccountControllerSpec extends Specification {
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        def accountInfoResource = mapper.readValue(entity.body, AccountInfoResource)
+        List<AccountInfoResource> accountInfoResources =
+            mapper.readValue(
+                entity.body,
+                new TypeReference<List<AccountInfoResource>>() {
+                }
+            )
+        def accountInfoResource = accountInfoResources[0]
 
         then:
         entity.statusCode == HttpStatus.OK
@@ -60,6 +71,39 @@ class AccountControllerSpec extends Specification {
         1  || 1            || 'Current Account' || '11-22-33 12345678' || 'HSBC'   || 'GBP'   || 'Current'
 
         url = 'http://localhost:8080/api/accounts/' + id
+    }
+
+    void "should return a list of account info resources"() {
+        when:
+        ResponseEntity<String> entity =
+            new RestTemplate().getForEntity(url, String)
+        def mapper = new ObjectMapper()
+        List<AccountInfoResource> accountInfoResources =
+            mapper.readValue(
+                entity.body,
+                new TypeReference<List<AccountInfoResource>>() {
+                }
+            )
+
+        then:
+        entity.statusCode == HttpStatus.OK
+
+        assert accountInfoResources.size() == 2
+        assert accountInfoResources == allAccountInfoResources
+
+        where:
+        accountInfoResource = new AccountInfoResource(
+            1,
+            'Current Account',
+            '11-22-33 12345678',
+            'HSBC',
+            CurrencyUnit.GBP,
+            AccountType.CURRENT
+        )
+
+        allAccountInfoResources = [accountInfoResource, accountInfoResource]
+
+        url = 'http://localhost:8080/api/accounts/'
     }
 
 }

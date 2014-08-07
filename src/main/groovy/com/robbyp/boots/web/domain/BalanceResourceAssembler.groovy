@@ -17,7 +17,7 @@ class BalanceResourceAssembler extends ResourceAssemblerSupport<Balance, Balance
 
     @Override
     BalanceResource toResource(Balance balance) {
-        BalanceResource resource = createResourceWithId(balance.accountId, balance)
+        BalanceResource resource = instantiateResource(balance)
         return resource
     }
 

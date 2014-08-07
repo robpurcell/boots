@@ -53,6 +53,29 @@ class ResponseEventHandlerSpec extends Specification {
 
     }
 
+    void "should select the correct assembler for a list of entities"() {
+        given:
+        def accountInfo =
+            new AccountInfo(
+                uniqueId: 1L,
+                name: anyString(),
+                number: anyString(),
+                institution: anyString(),
+                currency: CurrencyUnit.GBP,
+                type: AccountType.CURRENT,
+                openingDate: anyDate(),
+                openingBalance: BigMoney.parse('GBP 0')
+            )
+
+        def allAccountInfo = [accountInfo, accountInfo]
+
+        when:
+        def resourceAssembler = responseEventHandler.determineResourceAssembler(allAccountInfo)
+
+        then:
+        resourceAssembler.class == AccountInfoResourceAssembler
+    }
+
     void "should format the response correctly"() {
         given:
         def deferred = Promises.<ResponseEntity<AccountInfoResource>> defer(env)
@@ -77,21 +100,21 @@ class ResponseEventHandlerSpec extends Specification {
         )
 
         when:
-        responseEventHandler.formatResponse(Tuple.of(deferred, accountInfo))
+        responseEventHandler.formatResponse(Tuple.of(deferred, Collections.singletonList(accountInfo)))
         deferred.compose().await()
 
         then:
         def entity = deferred.compose().get()
-
-        then:
         entity.statusCode == HttpStatus.OK
-        entity.body.uniqueId == expectedAccountInfoResource.uniqueId
-        entity.body.name == expectedAccountInfoResource.name
-        entity.body.number == expectedAccountInfoResource.number
-        entity.body.institution == expectedAccountInfoResource.institution
-        entity.body.currency == expectedAccountInfoResource.currency
-        entity.body.type == expectedAccountInfoResource.type
 
+        for (entry in entity.body) {
+            assert entry.uniqueId == expectedAccountInfoResource.uniqueId
+            assert entry.name == expectedAccountInfoResource.name
+            assert entry.number == expectedAccountInfoResource.number
+            assert entry.institution == expectedAccountInfoResource.institution
+            assert entry.currency == expectedAccountInfoResource.currency
+            assert entry.type == expectedAccountInfoResource.type
+        }
     }
 
 }

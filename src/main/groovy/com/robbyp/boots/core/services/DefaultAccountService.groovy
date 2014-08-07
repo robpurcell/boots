@@ -31,6 +31,11 @@ class DefaultAccountService implements AccountService {
     }
 
     @Override
+    List<AccountInfo> allAccounts() {
+        return [accountInfo(1), accountInfo(2)]
+    }
+
+    @Override
     AccountInfo getAccountInfoForId(Long accountId) {
         return accountInfo(accountId)
     }
@@ -51,11 +56,6 @@ class DefaultAccountService implements AccountService {
     @Override
     AccountInfo createNewAccount(AccountInfo account) {
         return account
-    }
-
-    @Override
-    void list() {
-
     }
 
 }

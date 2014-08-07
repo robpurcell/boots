@@ -30,6 +30,15 @@ class AccountQueriesController {
     @Autowired
     private Reactor reactor
 
+    @RequestMapping(value = '/', method = RequestMethod.GET)
+    @ResponseBody
+    def showAll() {
+        def d = Promises.<ResponseEntity<List<AccountInfoResource>>> defer(env)
+        // TODO - def link = ControllerLinkBuilder.linkTo(this.getClass(), new Object[0])
+        reactor.notify('account.getAll', Event.wrap(Tuple.of(d)))
+        return d.compose()
+    }
+
     @RequestMapping(value = '/{account}', method = RequestMethod.GET)
     @ResponseBody
     def show(@PathVariable Long account) {

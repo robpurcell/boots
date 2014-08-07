@@ -4,9 +4,8 @@
  */
 package com.robbyp.boots.web.controller
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.robbyp.boots.Application
-import com.robbyp.boots.web.domain.TransactionResource
 import org.joda.time.LocalDate
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
@@ -21,6 +20,10 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
+
+import com.robbyp.boots.Application
+import com.robbyp.boots.web.domain.TransactionResource
+
 
 class TransactionControllerSpec extends Specification {
     @Shared
@@ -45,22 +48,26 @@ class TransactionControllerSpec extends Specification {
         ResponseEntity<String> entity =
             new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        def transactionResource = mapper.readValue(entity.body, TransactionResource)
+        List<TransactionResource> transactionResources =
+            mapper.readValue(
+                entity.body,
+                new TypeReference<List<TransactionResource>>() {
+                }
+            )
+        def transactionResource = transactionResources[0]
 
         then:
         entity.statusCode == HttpStatus.OK
-        transactionResource.with {
-            uniqueId == testUniqueId
-            quantity == testQuantity
-            price == testPrice
-            date == testDate
-            description == testDescription
-            type == testType
-        }
+        assert transactionResource.uniqueId == testUniqueId
+        assert transactionResource.quantity == testQuantity
+        assert transactionResource.price == testPrice
+        assert transactionResource.date == testDate
+        assert transactionResource.description == testDescription
+        assert transactionResource.type == testType
 
         where:
-        id | testUniqueId | testQuantity | testPrice | testType          | testDescription
-        1  | 1            | '1'          | 'USD 100' | 'transactionType' | 'description'
+        id || testUniqueId || testQuantity || testPrice || testType          || testDescription
+        1  || 1            || '1'          || 'USD 100' || 'transactionType' || 'description'
 
         url = 'http://localhost:8080/api/transactions/' + id
         testDate = new LocalDate().toString()
