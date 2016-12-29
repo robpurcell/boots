@@ -42,7 +42,9 @@ class AccountInfoResource extends ResourceSupport {
                         @JsonProperty('currency') String currency,
                         @JsonProperty('type') String type)
     {
-        this.uniqueId = uniqueId.toLong()
+        if (uniqueId != null) {
+            this.uniqueId = uniqueId.toLong()
+        }
         this.name = name
         this.number = number
         this.institution = institution

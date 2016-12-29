@@ -32,7 +32,7 @@ class TestDataGenerators {
     }
 
     static Character anyChar() {
-        return RandomStringUtils.random(1)
+        return RandomStringUtils.random(1).toChar
     }
 
     static DateTime anyDate() {
@@ -48,13 +48,15 @@ class TestDataGenerators {
     }
 
     static CurrencyUnit anyCurrency() {
-        def currencies = [CurrencyUnit.CHF, CurrencyUnit.GBP, CurrencyUnit.USD, CurrencyUnit.EUR, CurrencyUnit.CAD]
-        return currencies[Math.floor(Math.random() * currencies.size()).intValue()]
+        List<CurrencyUnit> currencies = [CurrencyUnit.CHF, CurrencyUnit.GBP, CurrencyUnit.USD, CurrencyUnit.EUR, CurrencyUnit.CAD]
+        Integer randomIndex = Math.floor(Math.random() * currencies.size()).intValue()
+        return currencies[randomIndex]
     }
 
     static AccountType anyAccountType() {
-        def types = [AccountType.CREDITCARD, AccountType.CURRENT, AccountType.SAVINGS, AccountType.MORTGAGE]
-        return types[Math.floor(Math.random() * types.size()).intValue()]
+        List<AccountType> types = [AccountType.CREDITCARD, AccountType.CURRENT, AccountType.SAVINGS, AccountType.MORTGAGE]
+        Integer randomIndex = Math.floor(Math.random() * types.size()).intValue()
+        return types[randomIndex]
     }
 
 }

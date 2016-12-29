@@ -1,22 +1,26 @@
 /**
- * Copyright (c) 2014 Purcell Informatics Limited.
+ * Copyright (c) 2016 Purcell Informatics Limited.
  *
  */
 package com.robbyp.boots.core.services
-
-import org.joda.money.BigMoney
-import org.joda.money.CurrencyUnit
-import org.joda.time.DateTime
-import org.springframework.stereotype.Service
 
 import com.robbyp.boots.core.domain.Account
 import com.robbyp.boots.core.domain.AccountInfo
 import com.robbyp.boots.core.domain.AccountType
 import com.robbyp.boots.core.domain.Balance
+import com.robbyp.boots.persistence.repository.AccountRepository
+import org.joda.money.BigMoney
+import org.joda.money.CurrencyUnit
+import org.joda.time.DateTime
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
 
 @Service
 class DefaultAccountService implements AccountService {
+
+    @Autowired
+    private AccountRepository repository
 
     private static accountInfo(Long accountId) {
         return new AccountInfo(
@@ -55,7 +59,7 @@ class DefaultAccountService implements AccountService {
 
     @Override
     AccountInfo createNewAccount(AccountInfo account) {
-        return account
+        return repository.save(account)
     }
 
 }

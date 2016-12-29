@@ -93,6 +93,7 @@ class CreateAccountIntegrationTest {
             .andExpect(jsonPath("\$.institution").value(ACCOUNT_INFO.institution))
             .andExpect(jsonPath("\$.currency").value(ACCOUNT_INFO.currency.code))
             .andExpect(jsonPath("\$.type").value(ACCOUNT_INFO.type.toString()))
+            .andDo(print())
     }
 
     @Test
@@ -105,6 +106,6 @@ class CreateAccountIntegrationTest {
         ).andExpect(header().string('Location',
                                     Matchers.endsWith
                                         ("/accounts/${ACCOUNT_INFO.uniqueId}"))
-        )
+        ).andDo(print())
     }
 }

@@ -18,7 +18,7 @@ class AccountDataFixture {
 
     static final AccountInfo standardAccountInfo() {
         return new AccountInfo(
-            uniqueId: anyInt(),
+            uniqueId: -1,
             name: anyString(),
             number: anyString(),
             institution: anyString(),
@@ -30,7 +30,7 @@ class AccountDataFixture {
 
     static final AccountInfoResource standardAccountInfoResource() {
         return new AccountInfoResource(
-            anyLong(),
+            -1,
             anyString(),
             anyString(),
             anyString(),
@@ -53,27 +53,25 @@ class AccountDataFixture {
     static final String standardAccountInfoJSON() {
         def accountInfo = standardAccountInfo()
         return """
-        {
-            "uniqueId":${accountInfo.uniqueId},
-            "name":"${accountInfo.name}",
-            "number":"${accountInfo.number}",
-            "institution":"${accountInfo.institution}",
-            "currency":"${accountInfo.currency.code}",
-            "type":"${accountInfo.type.name()}"
-        }
+            {
+                "name":" ${accountInfo.name}",
+                "number": "${accountInfo.number}",
+                "institution": "${accountInfo.institution}",
+                "currency": "${accountInfo.currency.code}",
+                "type": "${accountInfo.type.name()}"
+            }
         """
     }
 
     static final String standardAccountInfoJSON(AccountInfo accountInfo) {
         return """
-        {
-            "uniqueId":${accountInfo.uniqueId},
-            "name":"${accountInfo.name}",
-            "number":"${accountInfo.number}",
-            "institution":"${accountInfo.institution}",
-            "currency":"${accountInfo.currency.code}",
-            "type":"${accountInfo.type.name()}"
-        }
+            {
+                "name":"${accountInfo.name}",
+                "number":"${accountInfo.number}",
+                "institution":"${accountInfo.institution}",
+                "currency":"${accountInfo.currency.code}",
+                "type":"${accountInfo.type.name()}"
+            }
         """
     }
 
