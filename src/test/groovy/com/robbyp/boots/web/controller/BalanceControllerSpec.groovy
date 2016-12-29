@@ -45,15 +45,13 @@ class BalanceControllerSpec extends Specification {
 
     def "should return an account balance"() {
         when:
-        ResponseEntity<String> entity =
-            new RestTemplate().getForEntity(url, String)
+        ResponseEntity<String> entity = new RestTemplate().getForEntity(url, String)
         def mapper = new ObjectMapper()
-        List<BalanceResource> balanceResources =
-            mapper.readValue(
-                entity.body,
-                new TypeReference<List<BalanceResource>>() {
-                }
-            )
+        List<BalanceResource> balanceResources = mapper.readValue(
+            entity.body,
+            new TypeReference<List<BalanceResource>>() {
+            }
+        )
         def balanceResource = balanceResources[0]
 
         then:

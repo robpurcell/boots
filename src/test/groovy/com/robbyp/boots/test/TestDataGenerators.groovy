@@ -4,13 +4,12 @@
  */
 package com.robbyp.boots.test
 
+import com.robbyp.boots.core.domain.AccountType
 import org.apache.commons.lang3.RandomStringUtils
 import org.joda.money.CurrencyUnit
 import org.joda.time.DateTime
 
 import java.sql.Timestamp
-
-import com.robbyp.boots.core.domain.AccountType
 
 
 class TestDataGenerators {
@@ -48,13 +47,15 @@ class TestDataGenerators {
     }
 
     static CurrencyUnit anyCurrency() {
-        List<CurrencyUnit> currencies = [CurrencyUnit.CHF, CurrencyUnit.GBP, CurrencyUnit.USD, CurrencyUnit.EUR, CurrencyUnit.CAD]
+        List<CurrencyUnit> currencies =
+            [CurrencyUnit.CHF, CurrencyUnit.GBP, CurrencyUnit.USD, CurrencyUnit.EUR, CurrencyUnit.CAD]
         Integer randomIndex = Math.floor(Math.random() * currencies.size()).intValue()
         return currencies[randomIndex]
     }
 
     static AccountType anyAccountType() {
-        List<AccountType> types = [AccountType.CREDITCARD, AccountType.CURRENT, AccountType.SAVINGS, AccountType.MORTGAGE]
+        List<AccountType> types =
+            [AccountType.CREDITCARD, AccountType.CURRENT, AccountType.SAVINGS, AccountType.MORTGAGE]
         Integer randomIndex = Math.floor(Math.random() * types.size()).intValue()
         return types[randomIndex]
     }

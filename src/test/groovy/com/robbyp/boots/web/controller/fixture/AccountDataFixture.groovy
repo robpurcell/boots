@@ -1,13 +1,11 @@
 /**
- * Copyright (c) 2014 Purcell Informatics Limited.
+ * Copyright (c) 2016 Purcell Informatics Limited.
  *
  */
 package com.robbyp.boots.web.controller.fixture
 
 import static com.robbyp.boots.test.TestDataGenerators.anyAccountType
 import static com.robbyp.boots.test.TestDataGenerators.anyCurrency
-import static com.robbyp.boots.test.TestDataGenerators.anyInt
-import static com.robbyp.boots.test.TestDataGenerators.anyLong
 import static com.robbyp.boots.test.TestDataGenerators.anyString
 
 import com.robbyp.boots.core.domain.AccountInfo
@@ -15,22 +13,22 @@ import com.robbyp.boots.web.domain.AccountInfoResource
 
 
 class AccountDataFixture {
+    private static final UNIQUE_ID = -1
 
     static final AccountInfo standardAccountInfo() {
         return new AccountInfo(
-            uniqueId: -1,
+            uniqueId: UNIQUE_ID,
             name: anyString(),
             number: anyString(),
             institution: anyString(),
             currency: anyCurrency(),
             type: anyAccountType()
         )
-
     }
 
     static final AccountInfoResource standardAccountInfoResource() {
         return new AccountInfoResource(
-            -1,
+            UNIQUE_ID,
             anyString(),
             anyString(),
             anyString(),
